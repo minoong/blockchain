@@ -24,7 +24,6 @@ const App: FC = () => {
  }, []);
  return (
   <BrowserRouter>
-   <div>{account}</div>
    <Routes>
     <Route path='/' element={<Main account={account} />} />
    </Routes>
