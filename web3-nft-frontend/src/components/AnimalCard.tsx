@@ -6,7 +6,6 @@ interface AnimalCardProps {
 }
 
 const AnimalCard: React.FC<AnimalCardProps> = ({ animalType }) => {
- console.log(animalType);
  return <Image w={150} h={150} src={`images/${animalType}.png`} alt='AnimalCard' />;
 };
 
