@@ -11,6 +11,12 @@ contract SaleAnimalToken {
         mintAnimalTokenAddress = MintAnimalToken(_mintAnimalTokenAddress);
     }
 
+    struct AnimalTokenData {
+         uint256 animalTokenId;
+         uint256 animalType;
+         uint256 animalPrice;
+     }
+
     mapping(uint256 => uint256) public animalTokenPrices;
 
     uint256[] public onSaleAnimalTokenArray;
@@ -56,4 +62,20 @@ contract SaleAnimalToken {
     function getAnimalTokenPrice(uint256 _animalTokenId) view public returns (uint256) {
         return animalTokenPrices[_animalTokenId];
     }
+
+    function getSaleAnimalTokens() view public returns (AnimalTokenData[] memory) {
+         require(onSaleAnimalTokenArray.length != 0, "No sale tokens.");
+
+         AnimalTokenData[] memory animalTokenData = new AnimalTokenData[](onSaleAnimalTokenArray.length);
+
+         for (uint256 i = 0; i < onSaleAnimalTokenArray.length; i++) {
+             uint256 animalTokenId = onSaleAnimalTokenArray[i];
+             uint256 animalType = mintAnimalTokenAddress.animalTypes(animalTokenId);
+             uint256 animalPrice = animalTokenPrices[animalTokenId];
+
+             animalTokenData[i] = AnimalTokenData(animalTokenId, animalType, animalPrice);
+         }
+
+         return animalTokenData;
+     }
 }
