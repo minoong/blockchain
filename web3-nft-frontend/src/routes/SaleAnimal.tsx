@@ -15,14 +15,21 @@ const SaleAnimal: React.FC<SaleAnimalProps> = ({ account }) => {
   try {
    const onSaleAnimalTokenArrayLength = await saleAnimalTokenContract.methods.getOnSaleAnimalTokenArrayLength().call();
    const tempOnSaleArray: IMyAnimalCard[] = [];
-   for (let i = 0; i < parseInt(onSaleAnimalTokenArrayLength, 10); i++) {
-    const animalTokenId = await saleAnimalTokenContract.methods.onSaleAnimalTokenArray(i).call();
-    const animalType = await mintAnimalTokenContract.methods.animalTypes(animalTokenId).call();
-    const animalPrice = await saleAnimalTokenContract.methods.animalTokenPrices(animalTokenId).call();
 
-    tempOnSaleArray.push({ animalTokenId, animalType, animalPrice });
-   }
-   setSaleAnimalCard(tempOnSaleArray);
+   if (onSaleAnimalTokenArrayLength === '0') return;
+
+   const tempAnimalCardArray: IMyAnimalCard[] = [];
+   const res: IMyAnimalCard[] = await saleAnimalTokenContract.methods.getSaleAnimalTokens().call();
+
+   res.map(({ animalPrice, animalTokenId, animalType }) => {
+    tempAnimalCardArray.push({
+     animalPrice,
+     animalTokenId,
+     animalType,
+    });
+   });
+
+   setSaleAnimalCard(tempAnimalCardArray);
   } catch (error) {
    console.error(error);
   }

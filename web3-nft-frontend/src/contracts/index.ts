@@ -547,6 +547,36 @@ const saleAnimalTokenAbi: AbiItem[] = [
  },
  {
   inputs: [],
+  name: 'getSaleAnimalTokens',
+  outputs: [
+   {
+    components: [
+     {
+      internalType: 'uint256',
+      name: 'animalTokenId',
+      type: 'uint256',
+     },
+     {
+      internalType: 'uint256',
+      name: 'animalType',
+      type: 'uint256',
+     },
+     {
+      internalType: 'uint256',
+      name: 'animalPrice',
+      type: 'uint256',
+     },
+    ],
+    internalType: 'struct SaleAnimalToken.AnimalTokenData[]',
+    name: '',
+    type: 'tuple[]',
+   },
+  ],
+  stateMutability: 'view',
+  type: 'function',
+ },
+ {
+  inputs: [],
   name: 'mintAnimalTokenAddress',
   outputs: [
    {
@@ -609,7 +639,6 @@ const saleAnimalTokenAbi: AbiItem[] = [
   type: 'function',
  },
 ];
-
 const mintAnimalTokenAddress = process.env.REACT_APP_MINT_ANIMAL;
 const saleAnimalTokenAddress = process.env.REACT_APP_SALE_ANIMAL;
 
