@@ -1,14 +1,15 @@
 import { Flex, Button, Grid, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import AnimalCard from '../components/AnimalCard';
-import { mintAnimalTokenContract } from '../contracts';
+import MyAnimalCard, { IMyAnimalCard } from '../components/MyAnimalCard';
+import { mintAnimalTokenContract, saleAnimalTokenContract } from '../contracts';
 
 interface MyAnimalProps {
  account: string;
 }
 
 const MyAnimal: React.FC<MyAnimalProps> = ({ account }) => {
- const [animalCardArray, setAnimalCardArray] = useState<string[]>();
+ const [animalCardArray, setAnimalCardArray] = useState<IMyAnimalCard[]>();
  const [saleStatus, setSaleStatus] = useState<boolean>(false);
  const getAnimalTokens = async () => {
   try {
@@ -18,8 +19,9 @@ const MyAnimal: React.FC<MyAnimalProps> = ({ account }) => {
    for (let i = 0, len = parseInt(balanceLength, 10); i < len; i++) {
     const animalTokenId = await mintAnimalTokenContract.methods.tokenOfOwnerByIndex(account, i).call();
     const animalType = await mintAnimalTokenContract.methods.animalTypes(animalTokenId).call();
+    const animalPrice = await saleAnimalTokenContract.methods.animalTokenPrices(animalTokenId).call();
 
-    tempAnimalCardArray.push(animalType);
+    tempAnimalCardArray.push({ animalTokenId, animalType, animalPrice });
    }
 
    setAnimalCardArray(tempAnimalCardArray);
@@ -68,7 +70,17 @@ const MyAnimal: React.FC<MyAnimalProps> = ({ account }) => {
     </Button>
    </Flex>
    <Grid templateColumns='repeat(4, 1fr)' gap={8} mt={4}>
-    {animalCardArray && animalCardArray.map((animal, i) => <AnimalCard key={i} animalType={animal} />)}
+    {animalCardArray &&
+     animalCardArray.map((animal, i) => (
+      <MyAnimalCard
+       key={i}
+       animalTokenId={animal.animalTokenId}
+       animalType={animal.animalType}
+       animalPrice={animal.animalPrice}
+       saleStatus={saleStatus}
+       account={account}
+      />
+     ))}
    </Grid>
   </>
  );
