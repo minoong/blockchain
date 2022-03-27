@@ -19,6 +19,11 @@ const Layout: React.FC = ({ children }) => {
       my-animal
      </Button>
     </Link>
+    <Link to='sale-animal'>
+     <Button size='sm' colorScheme='cyan'>
+      sale-animal
+     </Button>
+    </Link>
    </Flex>
    <Flex direction='column' h='full' justifyContent='center' alignItems='center'>
     {children}
