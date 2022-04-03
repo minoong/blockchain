@@ -51,6 +51,7 @@ const SaleAnimal: React.FC<SaleAnimalProps> = ({ account }) => {
       animalTokenId={animal.animalTokenId}
       animalTokenOwner={animal.animalTokenOwner!}
       account={account}
+      getOnSaleAnimalTokens={getOnSaleAnimalTokens}
      />
     ))}
   </Grid>
