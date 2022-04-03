@@ -7,6 +7,7 @@ export interface IMyAnimalCard {
  animalTokenId: string;
  animalType: string;
  animalPrice: string;
+ animalTokenOwner?: string;
 }
 
 interface MyAnimalCardProps extends IMyAnimalCard {

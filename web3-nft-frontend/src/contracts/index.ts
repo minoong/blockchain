@@ -566,6 +566,11 @@ const saleAnimalTokenAbi: AbiItem[] = [
       name: 'animalPrice',
       type: 'uint256',
      },
+     {
+      internalType: 'address',
+      name: 'animalTokenOwner',
+      type: 'address',
+     },
     ],
     internalType: 'struct SaleAnimalToken.AnimalTokenData[]',
     name: '',

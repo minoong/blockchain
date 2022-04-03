@@ -15,6 +15,7 @@ contract SaleAnimalToken {
          uint256 animalTokenId;
          uint256 animalType;
          uint256 animalPrice;
+         address animalTokenOwner;
      }
 
     mapping(uint256 => uint256) public animalTokenPrices;
@@ -72,8 +73,9 @@ contract SaleAnimalToken {
              uint256 animalTokenId = onSaleAnimalTokenArray[i];
              uint256 animalType = mintAnimalTokenAddress.animalTypes(animalTokenId);
              uint256 animalPrice = animalTokenPrices[animalTokenId];
+             address animalTokenOwner = mintAnimalTokenAddress.ownerOf(animalTokenId);
 
-             animalTokenData[i] = AnimalTokenData(animalTokenId, animalType, animalPrice);
+             animalTokenData[i] = AnimalTokenData(animalTokenId, animalType, animalPrice, animalTokenOwner);
          }
 
          return animalTokenData;

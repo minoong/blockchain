@@ -11,6 +11,7 @@ interface MyAnimalProps {
 const MyAnimal: React.FC<MyAnimalProps> = ({ account }) => {
  const [animalCardArray, setAnimalCardArray] = useState<IMyAnimalCard[]>();
  const [saleStatus, setSaleStatus] = useState<boolean>(false);
+ console.log(account);
  const getAnimalTokens = async () => {
   try {
    const balanceLength = await mintAnimalTokenContract.methods.balanceOf(account).call();

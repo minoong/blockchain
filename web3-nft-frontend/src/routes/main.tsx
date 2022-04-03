@@ -17,9 +17,9 @@ const Main: React.FC<MainProps> = ({ account }) => {
 
    if (res.status) {
     const balanceLength = await mintAnimalTokenContract.methods.balanceOf(account).call();
-    const animalTokenId = await mintAnimalTokenContract.methods.tokenOfOwnerByIndex(account, parseInt(balanceLength.length, 10) - 1).call();
+    const animalTokenId = await mintAnimalTokenContract.methods.tokenOfOwnerByIndex(account, parseInt(balanceLength, 10) - 1).call();
     const animalType = await mintAnimalTokenContract.methods.animalTypes(animalTokenId).call();
-
+    console.log(animalType, animalTokenId);
     setNewAnimalType(animalType);
    }
   } catch (err) {

@@ -21,11 +21,12 @@ const SaleAnimal: React.FC<SaleAnimalProps> = ({ account }) => {
    const tempAnimalCardArray: IMyAnimalCard[] = [];
    const res: IMyAnimalCard[] = await saleAnimalTokenContract.methods.getSaleAnimalTokens().call();
 
-   res.map(({ animalPrice, animalTokenId, animalType }) => {
+   res.map(({ animalPrice, animalTokenId, animalType, animalTokenOwner }) => {
     tempAnimalCardArray.push({
      animalPrice,
      animalTokenId,
      animalType,
+     animalTokenOwner,
     });
    });
 
@@ -41,7 +42,17 @@ const SaleAnimal: React.FC<SaleAnimalProps> = ({ account }) => {
 
  return (
   <Grid mt={4} templateColumns='repeat(4, 1fr)' gap={8}>
-   {saleAnimalCard && saleAnimalCard.map((animal, index) => <SaleAnimalCard key={index} animalType={animal.animalType} animalPrice={animal.animalPrice} />)}
+   {saleAnimalCard &&
+    saleAnimalCard.map((animal, index) => (
+     <SaleAnimalCard
+      key={index}
+      animalType={animal.animalType}
+      animalPrice={animal.animalPrice}
+      animalTokenId={animal.animalTokenId}
+      animalTokenOwner={animal.animalTokenOwner!}
+      account={account}
+     />
+    ))}
   </Grid>
  );
 };
